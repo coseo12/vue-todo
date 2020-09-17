@@ -2,7 +2,12 @@
   <div>
     <form @submit.prevent="addTodo">
       <div class="input-wrap">
-        <input class="add-input" type="text" v-model="todoItem" />
+        <input
+          class="add-input"
+          type="text"
+          :value="todoItem"
+          @change="setTodoItem"
+        />
         <button class="add-btn">
           ADD
         </button>
@@ -20,6 +25,9 @@ export default {
     };
   },
   methods: {
+    setTodoItem(event) {
+      this.todoItem = event.target.value;
+    },
     addTodo() {
       const item = { id: new Date().getTime(), title: this.todoItem };
       this.$emit('add', item);
