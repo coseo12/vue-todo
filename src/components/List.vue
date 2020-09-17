@@ -10,6 +10,8 @@
 </template>
 
 <script>
+import { ref, computed, watch } from 'vue';
+
 export default {
   name: 'List',
   props: {
@@ -18,25 +20,23 @@ export default {
       required: false,
     },
   },
-  data() {
+  setup(props) {
+    const todoList = ref([]);
+    const getTodoList = computed(() => todoList.value);
+    watch(
+      () => props.item,
+      item => {
+        todoList.value.push(item);
+      }
+    );
+    function deleteTodo(id) {
+      todoList.value = todoList.value.filter(a => a.id !== id);
+    }
     return {
-      todoList: [],
+      todoList,
+      getTodoList,
+      deleteTodo,
     };
-  },
-  computed: {
-    getTodoList(state) {
-      return state.todoList;
-    },
-  },
-  watch: {
-    item: function(value) {
-      this.todoList.push(value);
-    },
-  },
-  methods: {
-    deleteTodo(id) {
-      this.todoList = this.todoList.filter(a => a.id !== id);
-    },
   },
 };
 </script>

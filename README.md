@@ -4,8 +4,9 @@ Vue3.0 todo example
 
 ## Branch
 
-master: default todo
-composition: composition api todo
+- master: default todo
+
+- composition: composition api todo
 
 ## Project setup
 

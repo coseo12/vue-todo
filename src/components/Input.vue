@@ -2,7 +2,12 @@
   <div>
     <form @submit.prevent="addTodo">
       <div class="input-wrap">
-        <input class="add-input" type="text" v-model="todoItem" />
+        <input
+          class="add-input"
+          type="text"
+          :value="todoItem"
+          @change="setTodoItem"
+        />
         <button class="add-btn">
           ADD
         </button>
@@ -12,18 +17,28 @@
 </template>
 
 <script>
+import { ref } from 'vue';
+
 export default {
   name: 'Input',
-  data() {
+  setup(props, { emit }) {
+    const todoItem = ref('');
+
+    function setTodoItem(event) {
+      todoItem.value = event.target.value;
+    }
+
+    function addTodo() {
+      const item = { id: new Date().getTime(), title: todoItem.value };
+      todoItem.value = '';
+      emit('add', item);
+    }
+
     return {
-      todoItem: '',
+      todoItem,
+      addTodo,
+      setTodoItem,
     };
-  },
-  methods: {
-    addTodo() {
-      const item = { id: new Date().getTime(), title: this.todoItem };
-      this.$emit('add', item);
-    },
   },
 };
 </script>
