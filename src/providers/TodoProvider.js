@@ -1,4 +1,4 @@
-import { provide, reactive, toRefs } from 'vue';
+import { provide, reactive, toRefs, readonly } from 'vue';
 
 export const TodoSymbol = Symbol('TodoSymbol');
 
@@ -13,7 +13,7 @@ export default {
         todo.todoList = todo.todoList.filter(item => item.id !== id);
       },
     });
-    provide(TodoSymbol, toRefs(todo));
+    provide(TodoSymbol, toRefs(readonly(todo)));
   },
   render() {
     return this.$slots.default();
