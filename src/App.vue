@@ -17,16 +17,6 @@ import TodoProvider from './provider/TodoProvider';
 export default {
   name: 'App',
   components: { Header, Input, List, TodoProvider },
-  data() {
-    return {
-      item: '',
-    };
-  },
-  methods: {
-    addTodo(item) {
-      this.item = item;
-    },
-  },
 };
 </script>
 
