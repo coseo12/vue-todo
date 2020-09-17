@@ -12,7 +12,7 @@
 import Header from './components/Header';
 import Input from './components/Input';
 import List from './components/List';
-import TodoProvider from './provider/TodoProvider';
+import TodoProvider from './providers/TodoProvider';
 
 export default {
   name: 'App',
