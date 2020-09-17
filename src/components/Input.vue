@@ -11,7 +11,7 @@
 
 <script>
 import { ref, inject } from 'vue';
-import { TodoSymbol } from '../provider/TodoProvider';
+import { TodoSymbol } from '../providers/TodoProvider';
 
 export default {
   name: 'Input',
