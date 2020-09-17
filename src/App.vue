@@ -2,8 +2,8 @@
   <div class="todo-wrap">
     <TodoProvider>
       <Header />
-      <Input @add="addTodo" />
-      <List :item="item" />
+      <Input />
+      <List />
     </TodoProvider>
   </div>
 </template>
