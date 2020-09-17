@@ -1,43 +1,33 @@
 <template>
   <div>
-    <form @submit.prevent="addTodo">
+    <form @submit.prevent="addTodoList">
       <div class="input-wrap">
-        <input
-          class="add-input"
-          type="text"
-          :value="todoItem"
-          @change="setTodoItem"
-        />
-        <button class="add-btn">
-          ADD
-        </button>
+        <input class="add-input" type="text" ref="todoItem" />
+        <button class="add-btn">ADD</button>
       </div>
     </form>
   </div>
 </template>
 
 <script>
-import { ref } from 'vue';
+import { ref, inject } from 'vue';
+import { TodoSymbol } from '../provider/TodoProvider';
 
 export default {
   name: 'Input',
-  setup(props, { emit }) {
-    const todoItem = ref('');
+  setup() {
+    const todoItem = ref(null);
+    const { addTodo } = inject(TodoSymbol);
 
-    function setTodoItem(event) {
-      todoItem.value = event.target.value;
-    }
-
-    function addTodo() {
-      const item = { id: new Date().getTime(), title: todoItem.value };
-      todoItem.value = '';
-      emit('add', item);
-    }
+    const addTodoList = () => {
+      const item = { id: new Date().getTime(), title: todoItem.value.value };
+      todoItem.value.value = '';
+      addTodo.value(item);
+    };
 
     return {
       todoItem,
-      addTodo,
-      setTodoItem,
+      addTodoList,
     };
   },
 };

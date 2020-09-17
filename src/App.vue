@@ -1,8 +1,10 @@
 <template>
   <div class="todo-wrap">
-    <Header />
-    <Input @add="addTodo" />
-    <List :item="item" />
+    <TodoProvider>
+      <Header />
+      <Input @add="addTodo" />
+      <List :item="item" />
+    </TodoProvider>
   </div>
 </template>
 
@@ -10,10 +12,11 @@
 import Header from './components/Header';
 import Input from './components/Input';
 import List from './components/List';
+import TodoProvider from './provider/TodoProvider';
 
 export default {
   name: 'App',
-  components: { Header, Input, List },
+  components: { Header, Input, List, TodoProvider },
   data() {
     return {
       item: '',

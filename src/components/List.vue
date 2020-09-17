@@ -1,41 +1,29 @@
 <template>
   <div class="todo-list-wrap">
     <ul>
-      <li v-for="(item, idx) in getTodoList" :key="idx" class="todo-list">
+      <li v-for="(item, idx) in todoList" :key="idx" class="todo-list">
         {{ '★' }}: {{ item.title }}
-        <button class="delete" @click="deleteTodo(item.id)">❌</button>
+        <button class="delete" @click="deleteDodoList(item.id)">❌</button>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
-import { ref, computed, watch } from 'vue';
+import { inject } from 'vue';
+import { TodoSymbol } from '../provider/TodoProvider';
 
 export default {
   name: 'List',
-  props: {
-    item: {
-      type: Object,
-      required: false,
-    },
-  },
-  setup(props) {
-    const todoList = ref([]);
-    const getTodoList = computed(() => todoList.value);
-    watch(
-      () => props.item,
-      item => {
-        todoList.value.push(item);
-      }
-    );
-    function deleteTodo(id) {
-      todoList.value = todoList.value.filter(a => a.id !== id);
-    }
+  setup() {
+    const {
+      todoList,
+      deleteTodo: { value: deleteDodoList },
+    } = inject(TodoSymbol);
+
     return {
       todoList,
-      getTodoList,
-      deleteTodo,
+      deleteDodoList,
     };
   },
 };
